@@ -129,13 +129,14 @@ model = get_model()
 
 # Get the fit history 
 # This was ran twice
-history = model.fit(x_train_sub, y_train_sub, epochs=25, validation_data = (x_test_sub, y_test_sub))
+history = model.fit(x_train_sub, y_train_sub, epochs=37, validation_data = (x_test_sub, y_test_sub))
 
 train_loss, train_acc = model.evaluate(x_train_sub,  y_train_sub, verbose=2)
 test_loss, test_acc = model.evaluate(x_test_sub,  y_test_sub, verbose=2)
 y_vals_cnn = model.predict(x_test_sub, verbose=2)
 y_test_sub_argmax = np.argmax(y_test_sub,axis=1)
 y_vals_cnn_argmax =  np.argmax(y_vals_cnn,axis=1)
+print("Convolution Neural Network")
 print(confusion_matrix(y_test_sub_argmax, y_vals_cnn_argmax))
 print(classification_report(y_test_sub_argmax, y_vals_cnn_argmax))
 
@@ -178,6 +179,7 @@ xgbmodel.fit(intermediate_output, new_train)
 score = xgbmodel.score(intermediate_test_output, new_val)
 y_pred_xgb = xgbmodel.predict(intermediate_test_output)
 
+print("Convolution XGBoost")
 print(confusion_matrix(new_val, y_pred_xgb))
 print(classification_report(new_val, y_pred_xgb))
 print(score)
@@ -189,6 +191,7 @@ y_pred_rf = rfModel.predict(intermediate_test_output)
 
 score = accuracy_score(y_pred_rf, new_val)
 
+print("Convolution Random Forest")
 print(confusion_matrix(new_val,y_pred_rf))
 print(classification_report(new_val, y_pred_rf))
 print(score)
@@ -200,6 +203,7 @@ svclassifier.fit(intermediate_output, new_train)
 y_pred_svm = svclassifier.predict(intermediate_test_output)
 score = accuracy_score(y_pred_svm, new_val)
 
+print("Convolution Support Vector Machines")
 print(confusion_matrix(new_val, y_pred_svm))
 print(classification_report(new_val, y_pred_svm))
 print(score)
